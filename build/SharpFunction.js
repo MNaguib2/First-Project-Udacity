@@ -20,8 +20,6 @@ function ProcessImage(fullname, width, height) {
             .resize(+width, +height)
             .toFile('./assets/thumbnail/' + Newfullname).then(result => {
             //console.log('Image Convert Successful!!');
-        }).catch(error => {
-            console.log('Occurred Error!', error);
         });
         return Newfullname;
     });
