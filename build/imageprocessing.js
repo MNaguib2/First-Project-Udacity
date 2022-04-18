@@ -15,7 +15,7 @@ function getFullNameFile(filename) {
                     return res(file);
                 }
             });
-            rej('No File Found');
+            rej('Invalid original file names');
         });
     });
 }

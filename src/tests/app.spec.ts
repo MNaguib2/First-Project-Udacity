@@ -5,7 +5,7 @@ const request = supertest(app);
 describe('Test endpoint responses', () => {
     it('gets the api endpoint', async () => {
         const response = await request.get('/api/images?filename=fjord&width=50&height=dfsdf');
-        expect(response.status).toBe(200);
+        expect(response.status).toBe(404);
     }),
     it('gets the api endpoint with Image', async () => {
         const response = await request.get('/assets/fjord.jpg');
@@ -13,7 +13,7 @@ describe('Test endpoint responses', () => {
     }),
     it('gets the api endpoint with fail Image', async () => {
         const response = await request.get('/api/images?filename=sdhf jksd&width=50&height=dfsdf');
-        expect(response.status).toBe(200);
+        expect(response.status).toBe(404);
     }),
     it('gets the api endpoin with fack url', async () => {
         const response = await request.get('/aplksdj f/lsjkdf kl');

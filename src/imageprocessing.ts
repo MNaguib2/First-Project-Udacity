@@ -11,7 +11,7 @@ function getFullNameFile(filename: string): Promise<string> {
                     return res(file);
                 }
             }); 
-            rej('No File Found');           
+            rej('Invalid original file names');           
         });
     })
 }

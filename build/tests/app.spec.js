@@ -18,7 +18,7 @@ const request = (0, supertest_1.default)(app_1.default);
 describe('Test endpoint responses', () => {
     it('gets the api endpoint', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get('/api/images?filename=fjord&width=50&height=dfsdf');
-        expect(response.status).toBe(200);
+        expect(response.status).toBe(404);
     })),
         it('gets the api endpoint with Image', () => __awaiter(void 0, void 0, void 0, function* () {
             const response = yield request.get('/assets/fjord.jpg');
@@ -26,7 +26,7 @@ describe('Test endpoint responses', () => {
         })),
         it('gets the api endpoint with fail Image', () => __awaiter(void 0, void 0, void 0, function* () {
             const response = yield request.get('/api/images?filename=sdhf jksd&width=50&height=dfsdf');
-            expect(response.status).toBe(200);
+            expect(response.status).toBe(404);
         })),
         it('gets the api endpoin with fack url', () => __awaiter(void 0, void 0, void 0, function* () {
             const response = yield request.get('/aplksdj f/lsjkdf kl');
