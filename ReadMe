@@ -1,0 +1,5 @@
+First To run Project write in cmd ` npm i `
+second use script ` npm run dev ` to test code
+third use this url ` http://localhost:3000/api/images?filename=download&width=50&height=500 ` and can change between Image 
+After Try code can write script ` npm run test ` to try a test end point 
+last can use script npm start to try code from app.js
