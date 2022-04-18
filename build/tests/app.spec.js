@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
-const app_1 = require("../app");
-const request = (0, supertest_1.default)(app_1.app);
+const app_1 = __importDefault(require("../app"));
+const request = (0, supertest_1.default)(app_1.default);
 describe('Test endpoint responses', () => {
     it('gets the api endpoint', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get('/api/images?filename=fjord&width=50&height=dfsdf');
@@ -33,6 +33,3 @@ describe('Test endpoint responses', () => {
             expect(response.status).toBe(200);
         }));
 });
-it('test get full name file', () => __awaiter(void 0, void 0, void 0, function* () {
-    yield expectAsync((0, app_1.getFullNameFile)('sjkdhfuisf')).toBeRejected();
-}));

@@ -3,63 +3,46 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getFullNameFile = exports.app = void 0;
 const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
+const imageprocessing_1 = __importDefault(require("./imageprocessing"));
 const fs_1 = __importDefault(require("fs"));
+const SharpFunction_1 = __importDefault(require("./SharpFunction"));
 const app = (0, express_1.default)();
-exports.app = app;
-app.use('/assets', express_1.default.static(path_1.default.join(__dirname, 'assets')));
-app.set('view engine', 'ejs');
-app.set('views', 'view');
-app.use(express_1.default.static(path_1.default.join(__dirname, 'public')));
+app.use('/assets', express_1.default.static(path_1.default.join(__dirname, 'assets/full')));
 app.use('/api/images', (req, res, next) => {
     let filename = req.query.filename;
     let width = req.query.width;
     let height = req.query.height;
-    if (isNaN(width)) {
-        width = 100;
-    }
-    if (isNaN(height)) {
-        height = 100;
-    }
-    getFullNameFile(filename)
-        .then(FullName => {
-        res.render('viewImage', {
-            height: height,
-            width: width,
-            filename: FullName
+    if (!isNaN(width) && filename && !isNaN(height)) {
+        (0, imageprocessing_1.default)(filename)
+            .then(result => {
+            (0, SharpFunction_1.default)(result, width, height).then(fullname => {
+                fs_1.default.readFile(path_1.default.join(__dirname, 'assets', 'thumbnail', fullname), (err, data) => {
+                    if (err)
+                        throw err;
+                    res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+                    res.end(data);
+                });
+            }).catch(error => {
+                console.log(error);
+            });
+        }).catch((error) => {
+            res.writeHead(404, { 'Content-Type': 'text/html' });
+            res.write('<h1>Please Write Valid Url such as /api/images<h1>');
+            res.write(`<h3>${error}<h3>`);
+            res.end();
         });
-    })
-        .catch(error => {
-        res.render('viewImage', {
-            height: height,
-            width: width,
-            filename: error
-        });
-        console.log(error);
-    });
+    }
+    else {
+        res.send('Please Write Correct Data');
+    }
 });
 app.use('**', (req, res, next) => {
     res.send('Please Write Valid Url such as /api/images');
 });
-function getFullNameFile(filename) {
-    return new Promise((res, rej) => {
-        fs_1.default.readdir('./assets', function (err, files) {
-            if (err) {
-                return rej('Unable to scan directory: ' + err);
-            }
-            files.forEach(function (file) {
-                if (file.split('.')[0] === filename) {
-                    return res(file);
-                }
-            });
-            return rej('No File Found');
-        });
-    });
-}
-exports.getFullNameFile = getFullNameFile;
 app.listen({ port: 3000 }, () => {
     console.log('server Running Ok !!');
 });
+exports.default = app;
 //http://localhost:3000/api/images?filename=test&width=100&height=100

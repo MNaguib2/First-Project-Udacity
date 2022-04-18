@@ -1,5 +1,5 @@
 import supertest from 'supertest';
-import { app, getFullNameFile } from "../app";
+import  app  from "../app";
 
 const request = supertest(app);
 describe('Test endpoint responses', () => {
@@ -20,6 +20,3 @@ describe('Test endpoint responses', () => {
         expect(response.status).toBe(200);
     })
 });
-it('test get full name file', async () => {
-    await expectAsync(getFullNameFile('sjkdhfuisf')).toBeRejected();
-})
