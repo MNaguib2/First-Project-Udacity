@@ -13,14 +13,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sharp_1 = __importDefault(require("sharp"));
+const fs_1 = __importDefault(require("fs"));
 function ProcessImage(fullname, width, height) {
     return __awaiter(this, void 0, void 0, function* () {
         const Newfullname = `filename=${fullname.split('.')[0]}&width=${width}&height=${height}.${fullname.split('.').pop()}`;
-        yield (0, sharp_1.default)(`./assets/full/${fullname}`)
-            .resize(+width, +height)
-            .toFile('./assets/thumbnail/' + Newfullname).then(result => {
-            //console.log('Image Convert Successful!!');
-        });
+        try {
+            const file = fs_1.default.readFileSync(process.cwd() + '/assets/thumbnail/' + Newfullname);
+            if (file) {
+                return Newfullname;
+            }
+        }
+        catch (error) {
+            yield (0, sharp_1.default)(`./assets/full/${fullname}`)
+                .resize(+width, +height)
+                .toFile('./assets/thumbnail/' + Newfullname); /*
+            .then(() => {
+                console.log('Image Convert Successful!!');
+                return Newfullname;
+            })
+            //*/
+        }
         return Newfullname;
     });
 }

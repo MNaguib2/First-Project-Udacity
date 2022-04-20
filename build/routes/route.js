@@ -8,10 +8,10 @@ const fs_1 = __importDefault(require("fs"));
 const SharpFunction_1 = __importDefault(require("../SharpFunction"));
 const express_1 = require("express");
 const route = (0, express_1.Router)();
-route.get('/api/images', (req, res, next) => {
-    let filename = req.query.filename;
-    let width = req.query.width;
-    let height = req.query.height;
+route.get('/api/images', (req, res) => {
+    const filename = req.query.filename;
+    const width = req.query.width;
+    const height = req.query.height;
     if (filename) {
         (0, imageprocessing_1.default)(filename)
             .then((result) => {

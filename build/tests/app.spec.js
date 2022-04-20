@@ -31,7 +31,7 @@ describe('Test endpoint responses', () => {
             expect(response.status).toBe(404);
         })),
         it('gets the api endpoin with fack url', () => __awaiter(void 0, void 0, void 0, function* () {
-            (0, SharpFunction_1.default)('download.png', 300, 300);
+            yield (0, SharpFunction_1.default)('download.png', 300, 300);
             expectAsync(fs_1.default.readFileSync(process.cwd() + "/assets/thumbnail/filename=download&width=300&height=300.png")).toBeResolvedTo;
         }));
 });

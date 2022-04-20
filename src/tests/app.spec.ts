@@ -18,7 +18,7 @@ describe('Test endpoint responses', () => {
         expect(response.status).toBe(404);
     }),
     it('gets the api endpoin with fack url', async () => {
-        ProcessImage('download.png', 300, 300);
+        await ProcessImage('download.png', 300, 300);
         expectAsync(fs.readFileSync(process.cwd() + "/assets/thumbnail/filename=download&width=300&height=300.png")).toBeResolvedTo;
     })
 });

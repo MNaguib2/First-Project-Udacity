@@ -1,15 +1,14 @@
 import getFullNameFile from "../imageprocessing";
 import fs from "fs";
-import path from "path";
 import ProcessImage from '../SharpFunction';
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Request, Response } from "express";
 
 const route = Router();
 
-route.get('/api/images', (req : Request, res: Response, next: NextFunction) => {
-    let filename = (req.query.filename as unknown) as string;
-    let width: number = (req.query.width as unknown) as number;
-    let height: number = (req.query.height as unknown) as number;
+route.get('/api/images', (req : Request, res: Response) => {
+    const filename = (req.query.filename as unknown) as string;
+    const width: number = (req.query.width as unknown) as number;
+    const height: number = (req.query.height as unknown) as number;
     if (filename) {
         getFullNameFile(filename)
         .then((result: string) => {
