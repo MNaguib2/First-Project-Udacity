@@ -19,7 +19,7 @@ async function ProcessImage(
   } catch (error) {
     await sharp(`./assets/full/${fullname}`)
       .resize(+width, +height)
-      .toFile('./assets/thumbnail/' + Newfullname); /*
+      .toFile('./assets/thumbnail/' + Newfullname) //*
         .then(() => {
             console.log('Image Convert Successful!!');
             return Newfullname;
